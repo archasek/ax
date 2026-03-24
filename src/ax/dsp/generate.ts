@@ -189,6 +189,7 @@ export class AxGen<IN = any, OUT extends AxGenOut = any>
     const promptTemplateOptions = {
       functions: options?.functions,
       thoughtFieldName: this.thoughtFieldName,
+      customTemplate: options?.customTemplate,
     };
     this.promptTemplate = new (options?.promptTemplate ?? AxPromptTemplate)(
       this.signature,
@@ -309,6 +310,7 @@ export class AxGen<IN = any, OUT extends AxGenOut = any>
       structuredOutputFunctionName: structuredOutputFunctionFallback
         ? STRUCTURED_OUTPUT_FUNCTION_NAME
         : undefined,
+      customTemplate: options?.customTemplate ?? this.options?.customTemplate,
     });
     const instruction = this.getInstruction();
     if (instruction !== undefined) {
