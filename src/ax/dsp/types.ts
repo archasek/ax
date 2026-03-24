@@ -215,7 +215,8 @@ export type AxProgramForwardOptions<MODEL> = AxAIServiceOptions & {
   // Field prefix is required for single output field programs
   strictMode?: boolean;
 
-  // Custom Mustache-compatible template string to use instead of the built-in dspy.md.
+  // Custom Ax template-engine string to use instead of the built-in dspy.md.
+  // Uses Mustache-style syntax with {{ var }}, {{ if cond }} / {{ else }} / {{ /if }}.
   // Receives the same variables as the default template (identityText, taskDefinitionText, etc.).
   // Useful for reordering prompt sections, e.g. placing <task_definition> before <identity>
   // to enable cross-signature prompt caching on providers like Azure OpenAI.

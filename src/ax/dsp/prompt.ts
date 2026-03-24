@@ -28,7 +28,8 @@ export interface AxPromptTemplateOptions {
   ignoreBreakpoints?: boolean;
   /** When set, indicates structured output should be delivered via a function call with this name */
   structuredOutputFunctionName?: string;
-  /** Custom Mustache-compatible template string to use instead of the built-in dspy.md.
+  /** Custom Ax template-engine string to use instead of the built-in dspy.md.
+   * Uses Mustache-style syntax with `{{ var }}`, `{{ if cond }}` / `{{ else }}` / `{{ /if }}`.
    * Receives the same variables as the default template (identityText, taskDefinitionText, etc.).
    * Useful for reordering prompt sections to enable cross-signature prompt caching. */
   customTemplate?: string;
@@ -223,9 +224,10 @@ export class AxPromptTemplate {
       structuredOutputFunctionName: this.structuredOutputFunctionName ?? '',
     };
 
-    const rendered = this.customTemplate
-      ? renderTemplateContent(this.customTemplate, templateVars)
-      : renderPromptTemplate('dsp/dspy.md', templateVars);
+    const rendered =
+      this.customTemplate !== undefined
+        ? renderTemplateContent(this.customTemplate, templateVars)
+        : renderPromptTemplate('dsp/dspy.md', templateVars);
 
     return { type: 'text' as const, text: rendered.trim() };
   }
