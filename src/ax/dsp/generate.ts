@@ -1034,6 +1034,7 @@ export class AxGen<IN = any, OUT extends AxGenOut = any>
       structuredOutputFunctionName: this.structuredOutputFunctionFallback
         ? STRUCTURED_OUTPUT_FUNCTION_NAME
         : undefined,
+      customTemplate: options.customTemplate ?? this.options?.customTemplate,
     };
 
     this.promptTemplate = new promptTemplateClass(
